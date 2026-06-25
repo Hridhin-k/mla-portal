@@ -1,0 +1,285 @@
+{
+  "metadata": {
+    "siteName": "MLA Constituency Portal",
+    "siteDescription": "A premium digital platform for constituency transparency, development projects, and citizen engagement."
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "news": "News",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "grievance": "Submit Grievance",
+    "track": "Track Complaint",
+    "admin": "Admin"
+  },
+  "common": {
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "learnMore": "Learn More",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "loading": "Loading...",
+    "noResults": "No results found",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "download": "Download",
+    "share": "Share",
+    "all": "All",
+    "featured": "Featured",
+    "status": "Status",
+    "category": "Category",
+    "date": "Date",
+    "location": "Location",
+    "progress": "Progress"
+  },
+  "home": {
+    "hero": {
+      "greeting": "Serving Our People",
+      "title": "Building a Better Tomorrow",
+      "subtitle": "Transparency, development, and dedicated public service for every citizen.",
+      "ctaProjects": "Explore Projects",
+      "ctaGrievance": "Submit Grievance",
+      "scroll": "Scroll to explore"
+    },
+    "about": {
+      "label": "About the MLA",
+      "title": "A Legacy of Public Service",
+      "biography": "Biography",
+      "vision": "Vision",
+      "journey": "Public Service Journey"
+    },
+    "impact": {
+      "label": "Constituency Impact",
+      "title": "Transforming Lives",
+      "roads": "Roads Completed",
+      "schools": "Schools Upgraded",
+      "healthcare": "Healthcare Projects",
+      "welfare": "Welfare Initiatives"
+    },
+    "projects": {
+      "label": "Development",
+      "title": "Featured Projects",
+      "subtitle": "Infrastructure and welfare initiatives across the constituency"
+    },
+    "news": {
+      "label": "Updates",
+      "title": "News & Announcements",
+      "subtitle": "Latest developments and public communications"
+    },
+    "participation": {
+      "label": "Your Voice Matters",
+      "title": "Public Participation",
+      "subtitle": "Submit grievances, track progress, and engage with your representative",
+      "ctaGrievance": "Submit a Grievance",
+      "ctaTrack": "Track Your Complaint"
+    },
+    "gallery": {
+      "label": "Moments",
+      "title": "Gallery Preview"
+    },
+    "testimonials": {
+      "label": "Public Voices",
+      "title": "What People Say"
+    },
+    "office": {
+      "label": "Visit Us",
+      "title": "Office Information",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "hours": "Working Hours"
+    }
+  },
+  "projects": {
+    "title": "Development Projects",
+    "subtitle": "Explore infrastructure and welfare initiatives across the constituency",
+    "searchPlaceholder": "Search projects...",
+    "related": "Related Projects",
+    "timeline": "Project Timeline",
+    "gallery": "Project Gallery",
+    "beforeAfter": "Before & After",
+    "categories": {
+      "roads": "Roads",
+      "education": "Education",
+      "healthcare": "Healthcare",
+      "water": "Water Projects",
+      "infrastructure": "Infrastructure"
+    },
+    "statuses": {
+      "planned": "Planned",
+      "in_progress": "In Progress",
+      "completed": "Completed"
+    }
+  },
+  "news": {
+    "title": "News & Announcements",
+    "subtitle": "Stay informed about constituency developments",
+    "searchPlaceholder": "Search news...",
+    "featured": "Featured Story",
+    "categories": {
+      "announcement": "Announcement",
+      "development": "Development",
+      "welfare": "Welfare",
+      "events": "Events",
+      "general": "General"
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Visual stories from our constituency",
+    "categories": {
+      "development": "Development",
+      "public_meetings": "Public Meetings",
+      "welfare": "Welfare",
+      "events": "Events"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Reach out to the MLA office",
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message"
+    },
+    "office": "Office Details",
+    "map": "Find Us"
+  },
+  "grievance": {
+    "title": "Public Grievance Portal",
+    "subtitle": "Your concerns matter. Submit them securely and track progress.",
+    "steps": {
+      "citizen": "Citizen Info",
+      "category": "Category",
+      "description": "Description",
+      "attachments": "Attachments",
+      "review": "Review"
+    },
+    "fields": {
+      "name": "Full Name",
+      "phone": "Phone Number",
+      "ward": "Ward",
+      "panchayat": "Panchayat",
+      "category": "Issue Category",
+      "description": "Complaint Description",
+      "attachments": "Upload Files",
+      "attachmentsHint": "Images or documents (max 5MB each)"
+    },
+    "categories": {
+      "drinking_water": "Drinking Water",
+      "roads": "Roads",
+      "pension": "Pension",
+      "healthcare": "Healthcare",
+      "education": "Education",
+      "infrastructure": "Infrastructure",
+      "other": "Other"
+    },
+    "charCount": "{count} / {max} characters",
+    "reviewTitle": "Review Your Submission",
+    "submitComplaint": "Submit Complaint",
+    "success": {
+      "title": "Complaint Submitted",
+      "message": "Your grievance has been registered successfully.",
+      "complaintId": "Your Complaint ID",
+      "trackHint": "Save this ID to track your complaint status",
+      "trackCta": "Track Complaint"
+    }
+  },
+  "track": {
+    "title": "Track Your Complaint",
+    "subtitle": "Enter your complaint ID to view status and updates",
+    "placeholder": "Enter Complaint ID (e.g., MLA-2026-ABC123)",
+    "search": "Track",
+    "notFound": "Complaint not found. Please check your ID and try again.",
+    "timeline": "Status Timeline",
+    "details": "Complaint Details",
+    "statuses": {
+      "submitted": "Submitted",
+      "under_review": "Under Review",
+      "in_progress": "In Progress",
+      "resolved": "Resolved"
+    }
+  },
+  "footer": {
+    "tagline": "Serving with dedication, transparency, and vision",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Portal",
+      "subtitle": "Sign in to manage the constituency portal",
+      "email": "Email",
+      "password": "Password",
+      "signIn": "Sign In",
+      "error": "Invalid credentials"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "complaints": "Complaints",
+      "news": "News",
+      "projects": "Projects",
+      "gallery": "Gallery",
+      "users": "Users",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "totalComplaints": "Total Complaints",
+      "pending": "Pending",
+      "inProgress": "In Progress",
+      "resolved": "Resolved",
+      "monthlyChart": "Monthly Complaints",
+      "categoryChart": "Category Distribution",
+      "resolutionRate": "Resolution Rate"
+    },
+    "complaints": {
+      "title": "Complaint Management",
+      "search": "Search complaints...",
+      "export": "Export",
+      "exportCsv": "Export CSV",
+      "exportExcel": "Export Excel",
+      "updateStatus": "Update Status",
+      "remarks": "Remarks",
+      "viewAttachments": "View Attachments"
+    },
+    "newsMgmt": {
+      "title": "News Management",
+      "create": "Create Article",
+      "edit": "Edit Article",
+      "publish": "Publish",
+      "unpublish": "Unpublish"
+    },
+    "projectsMgmt": {
+      "title": "Project Management",
+      "create": "Create Project",
+      "edit": "Edit Project"
+    },
+    "galleryMgmt": {
+      "title": "Gallery Management",
+      "create": "Create Album",
+      "bulkUpload": "Bulk Upload"
+    },
+    "usersMgmt": {
+      "title": "User Management",
+      "create": "Add User",
+      "role": "Role",
+      "roles": {
+        "admin": "Admin",
+        "staff": "Staff"
+      }
+    }
+  }
+}

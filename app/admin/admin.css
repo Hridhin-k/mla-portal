@@ -1,0 +1,175 @@
+/* Indian Constitution–inspired admin palette
+   Saffron · White · Green · Ashoka Navy */
+
+.admin-app {
+  --admin-saffron: #e8850c;
+  --admin-saffron-hover: #cf7408;
+  --admin-saffron-soft: #fff4e8;
+  --admin-navy: #0c1e42;
+  --admin-navy-mid: #1a2f5c;
+  --admin-navy-soft: #eef2f8;
+  --admin-green: #046a38;
+  --admin-green-soft: #e8f5ee;
+  --admin-white: #ffffff;
+  --admin-bg: #f4f6fa;
+  --admin-surface: #ffffff;
+  --admin-border: #e2e8f0;
+  --admin-text: #0f172a;
+  --admin-muted: #64748b;
+  --admin-shadow: 0 1px 3px rgba(12, 30, 66, 0.06), 0 4px 16px rgba(12, 30, 66, 0.04);
+  --admin-shadow-lg: 0 8px 30px rgba(12, 30, 66, 0.1);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  color: var(--admin-text);
+  background: var(--admin-bg);
+}
+
+.admin-tricolor {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--admin-saffron) 0%,
+    var(--admin-saffron) 33.33%,
+    var(--admin-white) 33.33%,
+    var(--admin-white) 66.66%,
+    var(--admin-green) 66.66%,
+    var(--admin-green) 100%
+  );
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-card-hover {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.admin-card-hover:hover {
+  box-shadow: var(--admin-shadow-lg);
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.admin-input {
+  width: 100%;
+  height: 2.75rem;
+  padding: 0 0.875rem;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-white);
+  font-size: 0.875rem;
+  color: var(--admin-text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.admin-input:focus {
+  outline: none;
+  border-color: var(--admin-saffron);
+  box-shadow: 0 0 0 3px rgba(232, 133, 12, 0.15);
+}
+
+.admin-textarea {
+  width: 100%;
+  min-height: 6rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-white);
+  font-size: 0.875rem;
+  resize: vertical;
+}
+
+.admin-textarea:focus {
+  outline: none;
+  border-color: var(--admin-saffron);
+  box-shadow: 0 0 0 3px rgba(232, 133, 12, 0.15);
+}
+
+.admin-table th {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--admin-muted);
+  background: var(--admin-navy-soft);
+}
+
+.admin-table tbody tr {
+  border-bottom: 1px solid var(--admin-border);
+  transition: background 0.15s;
+}
+
+.admin-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.admin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.admin-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+/* Portaled modals render outside .admin-app — variables must be re-declared here */
+.admin-dialog-overlay,
+.admin-dialog-content {
+  --admin-saffron: #e8850c;
+  --admin-saffron-hover: #cf7408;
+  --admin-saffron-soft: #fff4e8;
+  --admin-navy: #0c1e42;
+  --admin-navy-mid: #1a2f5c;
+  --admin-navy-soft: #eef2f8;
+  --admin-green: #046a38;
+  --admin-green-soft: #e8f5ee;
+  --admin-white: #ffffff;
+  --admin-bg: #f4f6fa;
+  --admin-surface: #ffffff;
+  --admin-border: #e2e8f0;
+  --admin-text: #0f172a;
+  --admin-muted: #64748b;
+  --admin-shadow: 0 1px 3px rgba(12, 30, 66, 0.06), 0 4px 16px rgba(12, 30, 66, 0.04);
+  --admin-shadow-lg: 0 8px 30px rgba(12, 30, 66, 0.18);
+}
+
+.admin-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(12, 30, 66, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.admin-dialog-content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 101;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 2rem);
+  max-width: 42rem;
+  max-height: min(90vh, 900px);
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  box-shadow: var(--admin-shadow-lg);
+  color: var(--admin-text);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+.admin-dialog-content:focus {
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  .admin-dialog-content {
+    width: 100%;
+  }
+}
