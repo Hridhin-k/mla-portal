@@ -12,23 +12,26 @@ import {
   Settings,
   LogOut,
   ExternalLink,
+  CircleHelp,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
+import { useAdminGuide } from "@/components/admin/admin-guide-provider";
 
 const navItems = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { href: "/admin/complaints", label: "Complaints", icon: MessageSquare },
-  { href: "/admin/news", label: "News", icon: Newspaper },
-  { href: "/admin/projects", label: "Projects", icon: FolderKanban },
-  { href: "/admin/gallery", label: "Gallery", icon: Images },
-  { href: "/admin/settings", label: "Settings", icon: Settings },
-  { href: "/admin/users", label: "Users", icon: Users },
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, tourId: "nav-dashboard" },
+  { href: "/admin/complaints", label: "Complaints", icon: MessageSquare, tourId: "nav-complaints" },
+  { href: "/admin/news", label: "News", icon: Newspaper, tourId: "nav-news" },
+  { href: "/admin/projects", label: "Projects", icon: FolderKanban, tourId: "nav-projects" },
+  { href: "/admin/gallery", label: "Gallery", icon: Images, tourId: "nav-gallery" },
+  { href: "/admin/settings", label: "Settings", icon: Settings, tourId: "nav-settings" },
+  { href: "/admin/users", label: "Users", icon: Users, tourId: "nav-users" },
 ];
 
 export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const { openHelp } = useAdminGuide();
 
   const handleLogout = async () => {
     const supabase = createClient();
@@ -65,6 +68,7 @@ export function AdminSidebar() {
             <Link
               key={item.href}
               href={item.href}
+              data-tour={item.tourId}
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all",
                 active
@@ -83,6 +87,15 @@ export function AdminSidebar() {
       </nav>
 
       <div className="p-4 border-t border-white/10 space-y-1">
+        <button
+          type="button"
+          data-tour="nav-help"
+          onClick={openHelp}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/60 hover:text-white hover:bg-white/6 transition-colors"
+        >
+          <CircleHelp className="h-4 w-4" />
+          Help & Guide
+        </button>
         <Link
           href="/en"
           target="_blank"
@@ -106,6 +119,7 @@ export function AdminSidebar() {
 export function AdminMobileNav() {
   const pathname = usePathname();
   const router = useRouter();
+  const { openHelp } = useAdminGuide();
 
   const handleLogout = async () => {
     const supabase = createClient();
@@ -121,6 +135,9 @@ export function AdminMobileNav() {
           <p className="font-semibold text-sm">Admin Console</p>
           <p className="text-[10px] text-white/50">Constituency Portal</p>
         </div>
+        <button onClick={openHelp} className="p-2 rounded-lg hover:bg-white/10" aria-label="Help">
+          <CircleHelp className="h-4 w-4" />
+        </button>
         <button onClick={handleLogout} className="p-2 rounded-lg hover:bg-white/10">
           <LogOut className="h-4 w-4" />
         </button>
