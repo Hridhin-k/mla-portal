@@ -6,6 +6,8 @@ import { ArrowLeft } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { getNewsBySlug, getNews } from "@/lib/data/queries";
 
+export const revalidate = 300;
+
 export async function generateStaticParams() {
   const news = await getNews();
   return news.map((n) => ({ slug: n.slug }));
@@ -36,7 +38,7 @@ export default async function NewsDetailPage({
         <h1 className="font-display text-4xl md:text-5xl font-medium text-charcoal mt-4 mb-8">{title}</h1>
         {article.featured_image && (
           <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-12">
-            <Image src={article.featured_image} alt={title} fill className="object-cover" priority />
+            <Image src={article.featured_image} alt={title} fill className="object-cover" priority sizes="(max-width: 1024px) 100vw, 896px" />
           </div>
         )}
         <div className="prose prose-lg max-w-none text-charcoal/80 leading-relaxed" dangerouslySetInnerHTML={{ __html: content }} />

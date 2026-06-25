@@ -8,7 +8,7 @@ import { FadeIn } from "@/components/animations/motion";
 import { Button } from "@/components/ui/button";
 import { testimonials as defaultTestimonials } from "@/lib/data/demo";
 import type { SiteSettings } from "@/types/database";
-import type { Gallery, GalleryImage } from "@/types/database";
+import type { GalleryImage } from "@/types/database";
 
 export function ParticipationSection() {
   const t = useTranslations("home.participation");
@@ -17,7 +17,7 @@ export function ParticipationSection() {
     <section className="py-24 lg:py-32 relative overflow-hidden">
       <div className="absolute inset-0 bg-charcoal" />
       <div className="absolute inset-0 opacity-20">
-        <Image src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&q=80" alt="" fill className="object-cover" />
+        <Image src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&q=80" alt="" fill className="object-cover" sizes="100vw" />
       </div>
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
         <FadeIn>
@@ -44,9 +44,8 @@ export function ParticipationSection() {
   );
 }
 
-export function GalleryPreview({ galleries }: { galleries: (Gallery & { images: GalleryImage[] })[] }) {
+export function GalleryPreview({ images }: { images: GalleryImage[] }) {
   const t = useTranslations("home.gallery");
-  const allImages = galleries.flatMap((g) => g.images).slice(0, 6);
 
   return (
     <section className="py-24 lg:py-32 bg-ivory">
@@ -56,7 +55,7 @@ export function GalleryPreview({ galleries }: { galleries: (Gallery & { images: 
           <h2 className="font-display text-4xl md:text-5xl font-medium text-charcoal">{t("title")}</h2>
         </FadeIn>
         <div className="masonry-grid">
-          {allImages.map((img, i) => (
+          {images.map((img, i) => (
             <FadeIn key={img.id} delay={i * 0.1} className="masonry-item">
               <Link href="/gallery" className="group block rounded-xl overflow-hidden">
                 <div className={`relative overflow-hidden rounded-xl ${i % 3 === 0 ? "aspect-[3/4]" : "aspect-square"}`}>
@@ -65,6 +64,7 @@ export function GalleryPreview({ galleries }: { galleries: (Gallery & { images: 
                     alt={img.caption ?? ""}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 200px"
                   />
                   <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-500" />
                 </div>

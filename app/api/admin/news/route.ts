@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireStaff } from "@/lib/admin/auth";
+import { CACHE_TAGS, revalidatePublicContent } from "@/lib/data/cache-tags";
 import { slugify } from "@/lib/utils";
 
 export async function GET() {
@@ -36,5 +37,6 @@ export async function POST(request: Request) {
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  revalidatePublicContent(CACHE_TAGS.news);
   return NextResponse.json(data, { status: 201 });
 }

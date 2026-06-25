@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireStaff } from "@/lib/admin/auth";
+import { CACHE_TAGS, revalidatePublicContent } from "@/lib/data/cache-tags";
 
 export async function PATCH(
   request: Request,
@@ -23,6 +24,7 @@ export async function PATCH(
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  revalidatePublicContent(CACHE_TAGS.news);
   return NextResponse.json(data);
 }
 
@@ -37,5 +39,6 @@ export async function DELETE(
   const { error } = await auth.supabase.from("news").delete().eq("id", id);
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  revalidatePublicContent(CACHE_TAGS.news);
   return NextResponse.json({ success: true });
 }

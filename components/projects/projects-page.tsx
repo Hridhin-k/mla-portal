@@ -71,7 +71,7 @@ export function ProjectsPageClient({ projects }: { projects: Project[] }) {
                 <article className="overflow-hidden rounded-2xl bg-soft-white border border-border hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
                   <div className="relative aspect-[16/10] overflow-hidden">
                     {project.featured_image && (
-                      <Image src={project.featured_image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                      <Image src={project.featured_image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                     )}
                     <div className="absolute top-4 left-4">
                       <span className="bg-charcoal/80 text-ivory text-xs px-3 py-1 rounded-full">

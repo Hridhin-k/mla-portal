@@ -8,6 +8,8 @@ import { Progress } from "@/components/ui/progress";
 import { formatDate } from "@/lib/utils";
 import { getProjectBySlug, getProjects } from "@/lib/data/queries";
 
+export const revalidate = 300;
+
 export async function generateStaticParams() {
   const projects = await getProjects();
   return projects.map((p) => ({ slug: p.slug }));
@@ -33,7 +35,7 @@ export default async function ProjectDetailPage({
     <div className="pt-20">
       <div className="relative h-[50vh] md:h-[60vh]">
         {project.featured_image && (
-          <Image src={project.featured_image} alt={title} fill className="object-cover" priority />
+          <Image src={project.featured_image} alt={title} fill className="object-cover" priority sizes="100vw" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireStaff } from "@/lib/admin/auth";
+import { CACHE_TAGS, revalidatePublicContent } from "@/lib/data/cache-tags";
 
 export async function DELETE(
   _request: Request,
@@ -12,5 +13,6 @@ export async function DELETE(
   const { error } = await auth.supabase.from("gallery_images").delete().eq("id", imageId);
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  revalidatePublicContent(CACHE_TAGS.gallery);
   return NextResponse.json({ success: true });
 }

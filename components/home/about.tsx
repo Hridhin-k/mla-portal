@@ -28,6 +28,7 @@ export function AboutSection({ settings }: { settings: SiteSettings }) {
                 alt={name}
                 fill
                 className="object-cover rounded-2xl"
+                sizes="(max-width: 768px) 100vw, 400px"
               />
               <div className="absolute -bottom-6 -right-6 w-32 h-32 border border-gold/40 rounded-2xl -z-10" />
             </div>

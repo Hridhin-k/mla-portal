@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireStaff } from "@/lib/admin/auth";
+import { CACHE_TAGS, revalidatePublicContent } from "@/lib/data/cache-tags";
 
 export async function GET() {
   const auth = await requireStaff();
@@ -41,5 +42,6 @@ export async function POST(request: Request) {
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  revalidatePublicContent(CACHE_TAGS.gallery);
   return NextResponse.json(data, { status: 201 });
 }

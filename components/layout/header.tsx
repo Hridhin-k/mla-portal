@@ -26,8 +26,17 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 20);
+        ticking = false;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -103,6 +112,7 @@ export function Header() {
             <Link
               href={pathname}
               locale="en"
+              prefetch
               className={cn(
                 "rounded-full px-3 py-1.5 transition-colors",
                 locale === "en"
@@ -119,6 +129,7 @@ export function Header() {
             <Link
               href={pathname}
               locale="ml"
+              prefetch
               className={cn(
                 "rounded-full px-3 py-1.5 transition-colors",
                 locale === "ml"

@@ -29,7 +29,7 @@ export function NewsPreview({ news }: { news: News[] }) {
               <Link href={`/news/${featured.slug}`} className="group block">
                 <article className="relative aspect-[4/3] rounded-2xl overflow-hidden">
                   {featured.featured_image && (
-                    <Image src={featured.featured_image} alt={featured.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                    <Image src={featured.featured_image} alt={featured.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 1024px) 100vw, 50vw" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
                   <div className="absolute bottom-0 p-8">
@@ -52,7 +52,7 @@ export function NewsPreview({ news }: { news: News[] }) {
                 <Link href={`/news/${item.slug}`} className="group flex gap-6 items-center">
                   <div className="relative w-32 h-24 rounded-xl overflow-hidden shrink-0">
                     {item.featured_image && (
-                      <Image src={item.featured_image} alt={item.title} fill className="object-cover" />
+                      <Image src={item.featured_image} alt={item.title} fill className="object-cover" sizes="128px" />
                     )}
                   </div>
                   <div>

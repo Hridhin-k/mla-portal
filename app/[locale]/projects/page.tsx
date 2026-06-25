@@ -3,6 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ProjectsPageClient } from "@/components/projects/projects-page";
 import { getProjects } from "@/lib/data/queries";
 
+export const revalidate = 300;
+
 export async function generateMetadata({
   params,
 }: {

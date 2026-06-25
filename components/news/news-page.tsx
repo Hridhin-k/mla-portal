@@ -55,7 +55,7 @@ export function NewsPageClient({ news }: { news: News[] }) {
             <Link href={`/news/${featured.slug}`} className="group block">
               <article className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="relative aspect-[16/10] rounded-2xl overflow-hidden">
-                  {featured.featured_image && <Image src={featured.featured_image} alt={featured.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />}
+                  {featured.featured_image && <Image src={featured.featured_image} alt={featured.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 1024px) 100vw, 66vw" />}
                 </div>
                 <div>
                   <span className="text-gold text-xs uppercase tracking-wider">{t("featured")}</span>
@@ -77,7 +77,7 @@ export function NewsPageClient({ news }: { news: News[] }) {
             <FadeIn key={item.id} delay={i * 0.05}>
               <Link href={`/news/${item.slug}`} className="group block">
                 <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-4">
-                  {item.featured_image && <Image src={item.featured_image} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />}
+                  {item.featured_image && <Image src={item.featured_image} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 33vw" />}
                 </div>
                 <span className="text-emerald text-xs uppercase tracking-wider">{t(`categories.${item.category}`)}</span>
                 <h3 className="font-display text-xl mt-1 group-hover:text-gold transition-colors">

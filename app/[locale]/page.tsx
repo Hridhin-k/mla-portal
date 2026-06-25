@@ -11,7 +11,9 @@ import {
   TestimonialsSection,
   OfficePreview,
 } from "@/components/home/sections";
-import { getSettings, getProjects, getNews, getGallery } from "@/lib/data/queries";
+import { getSettings, getProjects, getNews, getGalleryPreview } from "@/lib/data/queries";
+
+export const revalidate = 300;
 
 export async function generateMetadata({
   params,
@@ -39,11 +41,11 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [settings, projects, news, galleries] = await Promise.all([
+  const [settings, projects, news, galleryImages] = await Promise.all([
     getSettings(),
     getProjects({ featured: true }),
     getNews({ limit: 3 }),
-    getGallery(),
+    getGalleryPreview(6),
   ]);
 
   return (
@@ -54,7 +56,7 @@ export default async function HomePage({
       <ProjectsPreview projects={projects} />
       <NewsPreview news={news} />
       <ParticipationSection />
-      <GalleryPreview galleries={galleries} />
+      <GalleryPreview images={galleryImages} />
       <TestimonialsSection settings={settings} />
       <OfficePreview settings={settings} />
     </>

@@ -45,7 +45,7 @@ export function GalleryPageClient({ galleries }: { galleries: (Gallery & { image
                 className="group w-full rounded-xl overflow-hidden cursor-pointer"
               >
                 <div className={`relative overflow-hidden ${i % 3 === 0 ? "aspect-[3/4]" : "aspect-square"}`}>
-                  <Image src={img.image_url} alt={img.caption ?? ""} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <Image src={img.image_url} alt={img.caption ?? ""} fill className="object-cover group-hover:scale-110 transition-transform duration-700" sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" />
                   <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/40 transition-colors flex items-end p-4">
                     {img.caption && (
                       <p className="text-ivory text-sm opacity-0 group-hover:opacity-100 transition-opacity">
@@ -79,7 +79,7 @@ export function GalleryPageClient({ galleries }: { galleries: (Gallery & { image
               className="relative max-w-5xl max-h-[85vh] w-full aspect-video"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image src={lightbox.image_url} alt={lightbox.caption ?? ""} fill className="object-contain" />
+              <Image src={lightbox.image_url} alt={lightbox.caption ?? ""} fill className="object-contain" sizes="100vw" />
             </motion.div>
           </motion.div>
         )}

@@ -39,6 +39,7 @@ export function ProjectsPreview({ projects }: { projects: Project[] }) {
                         alt={project.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        sizes="(max-width: 768px) 100vw, 33vw"
                       />
                     )}
                     <div className="absolute top-4 left-4">
