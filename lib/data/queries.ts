@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { unstable_cache } from "next/cache";
+import { buildComplaintDashboardStats } from "@/lib/admin/dashboard-stats";
 import { createPublicClient } from "@/lib/supabase/public";
 import { createClient } from "@/lib/supabase/server";
 import { CACHE_TAGS, REVALIDATE_SECONDS } from "@/lib/data/cache-tags";
@@ -252,29 +253,5 @@ export async function getAllComplaints(): Promise<Complaint[]> {
 
 export async function getComplaintStats() {
   const complaints = await getAllComplaints();
-  const total = complaints.length;
-  const pending = complaints.filter((c) => c.status === "submitted" || c.status === "under_review").length;
-  const inProgress = complaints.filter((c) => c.status === "in_progress").length;
-  const resolved = complaints.filter((c) => c.status === "resolved").length;
-
-  const monthlyData: Record<string, number> = {};
-  complaints.forEach((c) => {
-    const month = new Date(c.created_at).toLocaleString("en", { month: "short", year: "2-digit" });
-    monthlyData[month] = (monthlyData[month] || 0) + 1;
-  });
-
-  const categoryData: Record<string, number> = {};
-  complaints.forEach((c) => {
-    categoryData[c.category] = (categoryData[c.category] || 0) + 1;
-  });
-
-  return {
-    total,
-    pending,
-    inProgress,
-    resolved,
-    resolutionRate: total > 0 ? Math.round((resolved / total) * 100) : 0,
-    monthlyData: Object.entries(monthlyData).map(([month, count]) => ({ month, count })),
-    categoryData: Object.entries(categoryData).map(([category, count]) => ({ category, count })),
-  };
+  return buildComplaintDashboardStats(complaints);
 }
