@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { ContentImage } from "@/components/ui/content-image";
+import { IMAGE_SIZES } from "@/lib/image-sizes";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { ArrowRight } from "lucide-react";
@@ -28,9 +29,13 @@ export function NewsPreview({ news }: { news: News[] }) {
             <FadeIn>
               <Link href={`/news/${featured.slug}`} className="group block">
                 <article className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                  {featured.featured_image && (
-                    <Image src={featured.featured_image} alt={featured.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 1024px) 100vw, 50vw" />
-                  )}
+                  <ContentImage
+                    src={featured.featured_image}
+                    alt={locale === "ml" && featured.title_ml ? featured.title_ml : featured.title}
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes={IMAGE_SIZES.cardFeaturedHalf}
+                    placeholderLabel="News image"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
                   <div className="absolute bottom-0 p-8">
                     <span className="text-gold text-xs uppercase tracking-wider">{tNews("featured")}</span>
@@ -51,9 +56,13 @@ export function NewsPreview({ news }: { news: News[] }) {
               <StaggerItem key={item.id}>
                 <Link href={`/news/${item.slug}`} className="group flex gap-6 items-center">
                   <div className="relative w-32 h-24 rounded-xl overflow-hidden shrink-0">
-                    {item.featured_image && (
-                      <Image src={item.featured_image} alt={item.title} fill className="object-cover" sizes="128px" />
-                    )}
+                    <ContentImage
+                      src={item.featured_image}
+                      alt={locale === "ml" && item.title_ml ? item.title_ml : item.title}
+                      className="object-cover"
+                      sizes={IMAGE_SIZES.newsThumb}
+                      placeholderLabel="News"
+                    />
                   </div>
                   <div>
                     <span className="text-emerald text-xs uppercase tracking-wider">

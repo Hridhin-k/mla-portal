@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { CardMedia } from "@/components/ui/card-media";
+import { IMAGE_SIZES } from "@/lib/image-sizes";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { useState } from "react";
@@ -54,9 +55,14 @@ export function NewsPageClient({ news }: { news: News[] }) {
           <FadeIn className="mb-12">
             <Link href={`/news/${featured.slug}`} className="group block">
               <article className="grid md:grid-cols-2 gap-8 items-center">
-                <div className="relative aspect-[16/10] rounded-2xl overflow-hidden">
-                  {featured.featured_image && <Image src={featured.featured_image} alt={featured.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 1024px) 100vw, 66vw" />}
-                </div>
+                <CardMedia
+                  src={featured.featured_image}
+                  alt={locale === "ml" && featured.title_ml ? featured.title_ml : featured.title}
+                  sizes={IMAGE_SIZES.splitHalf}
+                  className="rounded-2xl"
+                  imageClassName="group-hover:scale-105"
+                  placeholderLabel="News image"
+                />
                 <div>
                   <span className="text-gold text-xs uppercase tracking-wider">{t("featured")}</span>
                   <h2 className="font-display text-3xl md:text-4xl text-charcoal mt-2 group-hover:text-gold transition-colors">
@@ -72,15 +78,19 @@ export function NewsPageClient({ news }: { news: News[] }) {
           </FadeIn>
         )}
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid items-stretch md:grid-cols-2 lg:grid-cols-3 gap-8">
           {rest.map((item, i) => (
-            <FadeIn key={item.id} delay={i * 0.05}>
-              <Link href={`/news/${item.slug}`} className="group block">
-                <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-4">
-                  {item.featured_image && <Image src={item.featured_image} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 33vw" />}
-                </div>
+            <FadeIn key={item.id} delay={i * 0.05} className="h-full">
+              <Link href={`/news/${item.slug}`} className="group flex h-full flex-col">
+                <CardMedia
+                  src={item.featured_image}
+                  alt={locale === "ml" && item.title_ml ? item.title_ml : item.title}
+                  className="mb-4 rounded-xl"
+                  imageClassName="group-hover:scale-105"
+                  placeholderLabel="News"
+                />
                 <span className="text-emerald text-xs uppercase tracking-wider">{t(`categories.${item.category}`)}</span>
-                <h3 className="font-display text-xl mt-1 group-hover:text-gold transition-colors">
+                <h3 className="font-display text-xl mt-1 line-clamp-2 group-hover:text-gold transition-colors">
                   {locale === "ml" && item.title_ml ? item.title_ml : item.title}
                 </h3>
               </Link>

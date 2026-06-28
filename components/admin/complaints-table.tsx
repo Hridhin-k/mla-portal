@@ -163,12 +163,13 @@ export function ComplaintsTable() {
       />
 
       <div className="relative max-w-sm mb-6">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--admin-muted)]" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--admin-muted)]" />
         <input
+          type="search"
           placeholder="Search by name, ID, or category..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="admin-input pl-10"
+          className="admin-input admin-input-has-icon"
         />
       </div>
 

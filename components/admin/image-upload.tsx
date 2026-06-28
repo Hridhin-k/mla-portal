@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { IMAGE_SIZES } from "@/lib/image-sizes";
 import { useRef, useState } from "react";
 import { Upload, X, Loader2, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -11,6 +12,7 @@ interface ImageUploadProps {
   bucket?: string;
   folder?: string;
   label?: string;
+  previewAlt?: string;
   className?: string;
 }
 
@@ -20,6 +22,7 @@ export function ImageUpload({
   bucket = "projects",
   folder = "",
   label = "Upload Image",
+  previewAlt = "Uploaded image preview",
   className,
 }: ImageUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -53,7 +56,7 @@ export function ImageUpload({
       )}
       {value ? (
         <div className="relative aspect-video max-w-xs rounded-xl overflow-hidden border border-[var(--admin-border)] group">
-          <Image src={value} alt="Upload" fill className="object-cover" />
+          <Image src={value} alt={previewAlt} fill className="object-cover" sizes={IMAGE_SIZES.adminPreview} />
           <button
             type="button"
             onClick={() => onChange("")}

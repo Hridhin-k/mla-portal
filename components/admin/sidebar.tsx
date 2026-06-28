@@ -24,14 +24,16 @@ const navItems = [
   { href: "/admin/news", label: "News", icon: Newspaper, tourId: "nav-news" },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban, tourId: "nav-projects" },
   { href: "/admin/gallery", label: "Gallery", icon: Images, tourId: "nav-gallery" },
-  { href: "/admin/settings", label: "Settings", icon: Settings, tourId: "nav-settings" },
-  { href: "/admin/users", label: "Users", icon: Users, tourId: "nav-users" },
+  { href: "/admin/settings", label: "Settings", icon: Settings, tourId: "nav-settings", adminOnly: true },
+  { href: "/admin/users", label: "Users", icon: Users, tourId: "nav-users", adminOnly: true },
 ];
 
 export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { openHelp } = useAdminGuide();
+  const { openHelp, isAdmin } = useAdminGuide();
+
+  const visibleNav = navItems.filter((item) => !item.adminOnly || isAdmin);
 
   const handleLogout = async () => {
     const supabase = createClient();
@@ -62,7 +64,7 @@ export function AdminSidebar() {
         <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/40">
           Manage
         </p>
-        {navItems.map((item) => {
+        {visibleNav.map((item) => {
           const active = isActive(item.href, item.exact);
           return (
             <Link
@@ -119,7 +121,9 @@ export function AdminSidebar() {
 export function AdminMobileNav() {
   const pathname = usePathname();
   const router = useRouter();
-  const { openHelp } = useAdminGuide();
+  const { openHelp, isAdmin } = useAdminGuide();
+
+  const visibleNav = navItems.filter((item) => !item.adminOnly || isAdmin);
 
   const handleLogout = async () => {
     const supabase = createClient();
@@ -143,7 +147,7 @@ export function AdminMobileNav() {
         </button>
       </div>
       <div className="flex gap-1 overflow-x-auto px-3 pb-3 admin-scrollbar">
-        {navItems.map((item) => {
+        {visibleNav.map((item) => {
           const active = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
           return (
             <Link

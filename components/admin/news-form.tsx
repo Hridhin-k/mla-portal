@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ImageUpload } from "@/components/admin/image-upload";
 import { AdminButton } from "@/components/admin/ui";
+import { publishedImageError } from "@/lib/image-utils";
 import type { News, NewsCategory } from "@/types/database";
 
 const categories: NewsCategory[] = ["announcement", "development", "welfare", "events", "general"];
@@ -45,6 +46,11 @@ export function NewsForm({ initial, onSave, onCancel }: NewsFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const imageError = publishedImageError(form.is_published, form.featured_image, "featured image");
+    if (imageError) {
+      setError(imageError);
+      return;
+    }
     setSaving(true);
     setError(null);
     try {
@@ -101,6 +107,9 @@ export function NewsForm({ initial, onSave, onCancel }: NewsFormProps) {
           Published
         </label>
       </div>
+      <p className="text-xs text-[var(--admin-muted)] -mt-1">
+        Publishing requires a featured image.
+      </p>
 
       {error && <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{error}</p>}
 

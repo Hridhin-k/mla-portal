@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireStaff } from "@/lib/admin/auth";
 import { CACHE_TAGS, revalidatePublicContent } from "@/lib/data/cache-tags";
+import { pickGalleryPayload } from "@/lib/admin/gallery";
 
 export async function GET(
   _request: Request,
@@ -39,7 +40,7 @@ export async function PATCH(
 
   const { data, error } = await auth.supabase
     .from("gallery")
-    .update(body)
+    .update(pickGalleryPayload(body))
     .eq("id", id)
     .select()
     .single();

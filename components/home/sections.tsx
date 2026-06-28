@@ -1,6 +1,9 @@
 "use client";
 
+import { GalleryMosaic } from "@/components/gallery/gallery-mosaic";
+import { ContentImage } from "@/components/ui/content-image";
 import Image from "next/image";
+import { IMAGE_SIZES } from "@/lib/image-sizes";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, MessageSquare } from "lucide-react";
@@ -17,7 +20,7 @@ export function ParticipationSection() {
     <section className="py-24 lg:py-32 relative overflow-hidden">
       <div className="absolute inset-0 bg-charcoal" />
       <div className="absolute inset-0 opacity-20">
-        <Image src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&q=80" alt="" fill className="object-cover" sizes="100vw" />
+        <Image src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&q=80" alt="" fill className="object-cover" sizes={IMAGE_SIZES.viewport} />
       </div>
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
         <FadeIn>
@@ -46,6 +49,7 @@ export function ParticipationSection() {
 
 export function GalleryPreview({ images }: { images: GalleryImage[] }) {
   const t = useTranslations("home.gallery");
+  const locale = useLocale();
 
   return (
     <section className="py-24 lg:py-32 bg-ivory">
@@ -54,23 +58,11 @@ export function GalleryPreview({ images }: { images: GalleryImage[] }) {
           <p className="text-gold text-sm uppercase tracking-[0.3em] mb-4">{t("label")}</p>
           <h2 className="font-display text-4xl md:text-5xl font-medium text-charcoal">{t("title")}</h2>
         </FadeIn>
-        <div className="masonry-grid">
-          {images.map((img, i) => (
-            <FadeIn key={img.id} delay={i * 0.1} className="masonry-item">
-              <Link href="/gallery" className="group block rounded-xl overflow-hidden">
-                <div className={`relative overflow-hidden rounded-xl ${i % 3 === 0 ? "aspect-[3/4]" : "aspect-square"}`}>
-                  <Image
-                    src={img.image_url}
-                    alt={img.caption ?? ""}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 200px"
-                  />
-                  <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-500" />
-                </div>
-              </Link>
-            </FadeIn>
-          ))}
+        <GalleryMosaic images={images} locale={locale} />
+        <div className="mt-10 text-center">
+          <Link href="/gallery" className="text-gold hover:text-brass transition-colors text-sm font-medium inline-flex items-center gap-2">
+            View full gallery <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>

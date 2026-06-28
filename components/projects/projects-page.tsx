@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { CardMedia } from "@/components/ui/card-media";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { useState } from "react";
@@ -64,29 +64,34 @@ export function ProjectsPageClient({ projects }: { projects: Project[] }) {
           </div>
         </FadeIn>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid items-stretch md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filtered.map((project, i) => (
-            <FadeIn key={project.id} delay={i * 0.05}>
-              <Link href={`/projects/${project.slug}`} className="group block">
-                <article className="overflow-hidden rounded-2xl bg-soft-white border border-border hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    {project.featured_image && (
-                      <Image src={project.featured_image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-                    )}
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-charcoal/80 text-ivory text-xs px-3 py-1 rounded-full">
-                        {t(`statuses.${project.status}`)}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-6">
+            <FadeIn key={project.id} delay={i * 0.05} className="h-full">
+              <Link href={`/projects/${project.slug}`} className="group flex h-full">
+                <article className="flex h-full w-full flex-col overflow-hidden rounded-2xl bg-soft-white border border-border hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                  <CardMedia
+                    src={project.featured_image}
+                    alt={locale === "ml" && project.title_ml ? project.title_ml : project.title}
+                    imageClassName="group-hover:scale-105"
+                    placeholderLabel="Project image"
+                    overlay={
+                      <div className="absolute top-4 left-4 z-10">
+                        <span className="bg-charcoal/80 text-ivory text-xs px-3 py-1 rounded-full">
+                          {t(`statuses.${project.status}`)}
+                        </span>
+                      </div>
+                    }
+                  />
+                  <div className="flex flex-1 flex-col p-6">
                     <span className="text-emerald text-xs uppercase tracking-wider">{t(`categories.${project.category}`)}</span>
-                    <h2 className="font-display text-xl text-charcoal mt-2 mb-3 group-hover:text-gold transition-colors">
+                    <h2 className="font-display text-xl text-charcoal mt-2 mb-3 line-clamp-2 group-hover:text-gold transition-colors">
                       {locale === "ml" && project.title_ml ? project.title_ml : project.title}
                     </h2>
-                    {project.location && <p className="text-sm text-muted mb-4">{project.location}</p>}
-                    <Progress value={project.progress} />
-                    <p className="text-xs text-emerald mt-2">{project.progress}%</p>
+                    {project.location && <p className="text-sm text-muted mb-4 line-clamp-1">{project.location}</p>}
+                    <div className="mt-auto">
+                      <Progress value={project.progress} />
+                      <p className="text-xs text-emerald mt-2">{project.progress}%</p>
+                    </div>
                   </div>
                 </article>
               </Link>

@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { ContentImage } from "@/components/ui/content-image";
+import { IMAGE_SIZES } from "@/lib/image-sizes";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
@@ -35,7 +36,14 @@ export default async function ProjectDetailPage({
     <div className="pt-20">
       <div className="relative h-[50vh] md:h-[60vh]">
         {project.featured_image && (
-          <Image src={project.featured_image} alt={title} fill className="object-cover" priority sizes="100vw" />
+          <ContentImage
+            src={project.featured_image}
+            alt={title}
+            className="object-cover"
+            priority
+            sizes={IMAGE_SIZES.viewport}
+            placeholderLabel="Project image"
+          />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">
@@ -62,11 +70,11 @@ export default async function ProjectDetailPage({
                 <h2 className="font-display text-2xl mb-6">{t("beforeAfter")}</h2>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="relative aspect-video rounded-xl overflow-hidden">
-                    <Image src={project.before_image} alt="Before" fill className="object-cover" />
+                    <ContentImage src={project.before_image} alt="Before" className="object-cover" sizes={IMAGE_SIZES.splitHalf} placeholderLabel="Before" />
                     <span className="absolute bottom-4 left-4 bg-charcoal/80 text-ivory text-xs px-3 py-1 rounded-full">Before</span>
                   </div>
                   <div className="relative aspect-video rounded-xl overflow-hidden">
-                    <Image src={project.after_image} alt="After" fill className="object-cover" />
+                    <ContentImage src={project.after_image} alt="After" className="object-cover" sizes={IMAGE_SIZES.splitHalf} placeholderLabel="After" />
                     <span className="absolute bottom-4 left-4 bg-emerald/80 text-ivory text-xs px-3 py-1 rounded-full">After</span>
                   </div>
                 </div>
@@ -117,7 +125,15 @@ export default async function ProjectDetailPage({
               {related.map((p) => (
                 <Link key={p.id} href={`/projects/${p.slug}`} className="group">
                   <div className="relative aspect-video rounded-xl overflow-hidden mb-3">
-                    {p.featured_image && <Image src={p.featured_image} alt={p.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />}
+                    {p.featured_image && (
+                      <ContentImage
+                        src={p.featured_image}
+                        alt={p.title}
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes={IMAGE_SIZES.relatedCard3}
+                        placeholderLabel="Project"
+                      />
+                    )}
                   </div>
                   <h3 className="font-display text-lg group-hover:text-gold transition-colors">{p.title}</h3>
                 </Link>

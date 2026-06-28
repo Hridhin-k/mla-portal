@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { IMAGE_SIZES } from "@/lib/image-sizes";
 import { Plus, Pencil, Trash2, Images, Upload, Loader2, X } from "lucide-react";
 import { DialogRoot, DialogContent } from "@/components/admin/dialog";
 import { GalleryForm } from "@/components/admin/gallery-form";
@@ -15,6 +16,11 @@ import {
 import type { Gallery, GalleryImage } from "@/types/database";
 
 type GalleryWithCount = Gallery & { image_count?: number };
+
+function toGalleryRecord(album: GalleryWithCount): Gallery {
+  const { image_count: _imageCount, ...gallery } = album;
+  return gallery;
+}
 
 export function GalleryAdmin() {
   const [albums, setAlbums] = useState<GalleryWithCount[]>([]);
@@ -151,7 +157,7 @@ export function GalleryAdmin() {
             <div key={album.id} className="admin-card admin-card-hover overflow-hidden">
               <div className="relative aspect-video bg-[var(--admin-navy-soft)]">
                 {album.cover_image ? (
-                  <Image src={album.cover_image} alt={album.title} fill className="object-cover" />
+                  <Image src={album.cover_image} alt={album.title} fill className="object-cover" sizes={IMAGE_SIZES.adminAlbumCard} />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <Images className="h-10 w-10 text-[var(--admin-navy)]/20" />
@@ -177,7 +183,7 @@ export function GalleryAdmin() {
                     <button
                       title="Edit album"
                       onClick={() => {
-                        setEditing(album);
+                        setEditing(toGalleryRecord(album));
                         setFormOpen(true);
                       }}
                       className="p-2 rounded-lg hover:bg-[var(--admin-navy-soft)] text-[var(--admin-muted)]"
@@ -259,7 +265,7 @@ export function GalleryAdmin() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[400px] overflow-y-auto admin-scrollbar">
                   {images.map((img) => (
                     <div key={img.id} className="relative aspect-square rounded-lg overflow-hidden border border-[var(--admin-border)] group">
-                      <Image src={img.image_url} alt={img.caption ?? ""} fill className="object-cover" />
+                      <Image src={img.image_url} alt={img.caption ?? ""} fill className="object-cover" sizes={IMAGE_SIZES.adminGalleryThumb} />
                       <button
                         type="button"
                         onClick={() => deleteImage(img.id)}

@@ -1,6 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import { ContentImage } from "@/components/ui/content-image";
+import { IMAGE_SIZES } from "@/lib/image-sizes";
+import { GalleryMosaic } from "@/components/gallery/gallery-mosaic";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -37,27 +39,7 @@ export function GalleryPageClient({ galleries }: { galleries: (Gallery & { image
           ))}
         </FadeIn>
 
-        <div className="masonry-grid">
-          {allImages.map((img, i) => (
-            <FadeIn key={img.id} delay={i * 0.03} className="masonry-item">
-              <button
-                onClick={() => setLightbox(img)}
-                className="group w-full rounded-xl overflow-hidden cursor-pointer"
-              >
-                <div className={`relative overflow-hidden ${i % 3 === 0 ? "aspect-[3/4]" : "aspect-square"}`}>
-                  <Image src={img.image_url} alt={img.caption ?? ""} fill className="object-cover group-hover:scale-110 transition-transform duration-700" sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" />
-                  <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/40 transition-colors flex items-end p-4">
-                    {img.caption && (
-                      <p className="text-ivory text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                        {locale === "ml" && img.caption_ml ? img.caption_ml : img.caption}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </button>
-            </FadeIn>
-          ))}
-        </div>
+        <GalleryMosaic images={allImages} locale={locale} onImageClick={setLightbox} />
       </div>
 
       <AnimatePresence>
@@ -79,7 +61,18 @@ export function GalleryPageClient({ galleries }: { galleries: (Gallery & { image
               className="relative max-w-5xl max-h-[85vh] w-full aspect-video"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image src={lightbox.image_url} alt={lightbox.caption ?? ""} fill className="object-contain" sizes="100vw" />
+              <ContentImage
+                src={lightbox.image_url}
+                alt={lightbox.caption ?? "Gallery photograph"}
+                className="object-contain"
+                sizes={IMAGE_SIZES.lightbox}
+                placeholderLabel="Image unavailable"
+              />
+              {lightbox.caption && (
+                <p className="absolute -bottom-10 left-0 right-0 text-center text-sm text-ivory/80">
+                  {locale === "ml" && lightbox.caption_ml ? lightbox.caption_ml : lightbox.caption}
+                </p>
+              )}
             </motion.div>
           </motion.div>
         )}

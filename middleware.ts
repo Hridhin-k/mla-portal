@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith("/admin")) {
-    if (pathname === "/admin/login") {
+    if (pathname === "/admin/login" || pathname.startsWith("/admin/login/")) {
       return NextResponse.next();
     }
 
@@ -21,7 +21,9 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
-    const response = NextResponse.next({ request });
+    const loginUrl = new URL("/admin/login", request.url);
+
+    let supabaseResponse = NextResponse.next({ request });
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -32,7 +34,7 @@ export async function middleware(request: NextRequest) {
           },
           setAll(cookiesToSet) {
             cookiesToSet.forEach(({ name, value, options }) => {
-              response.cookies.set(name, value, options);
+              supabaseResponse.cookies.set(name, value, options);
             });
           },
         },
@@ -44,7 +46,7 @@ export async function middleware(request: NextRequest) {
     } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
+      return NextResponse.redirect(loginUrl);
     }
 
     const { data: profile } = await supabase
@@ -55,10 +57,13 @@ export async function middleware(request: NextRequest) {
 
     const row = profile as { role: string; is_active: boolean } | null;
     if (!row?.is_active || !["admin", "staff"].includes(row.role)) {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
+      loginUrl.searchParams.set("reason", !row?.is_active ? "inactive" : "forbidden");
+      supabaseResponse = NextResponse.redirect(loginUrl);
+      await supabase.auth.signOut();
+      return supabaseResponse;
     }
 
-    return response;
+    return supabaseResponse;
   }
 
   if (

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { CardMedia } from "@/components/ui/card-media";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { ArrowRight } from "lucide-react";
@@ -27,32 +27,29 @@ export function ProjectsPreview({ projects }: { projects: Project[] }) {
           </Link>
         </FadeIn>
 
-        <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <StaggerContainer className="grid items-stretch md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.slice(0, 3).map((project) => (
-            <StaggerItem key={project.id}>
-              <Link href={`/projects/${project.slug}`} className="group block">
-                <article className="overflow-hidden rounded-2xl bg-soft-white border border-border hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    {project.featured_image && (
-                      <Image
-                        src={project.featured_image}
-                        alt={project.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                    )}
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-charcoal/80 text-ivory text-xs px-3 py-1 rounded-full backdrop-blur-sm">
-                        {tProjects(`categories.${project.category}`)}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-display text-xl text-charcoal mb-2 group-hover:text-gold transition-colors">
+            <StaggerItem key={project.id} className="h-full">
+              <Link href={`/projects/${project.slug}`} className="group flex h-full">
+                <article className="flex h-full w-full flex-col overflow-hidden rounded-2xl bg-soft-white border border-border hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+                  <CardMedia
+                    src={project.featured_image}
+                    alt={locale === "ml" && project.title_ml ? project.title_ml : project.title}
+                    imageClassName="group-hover:scale-105"
+                    placeholderLabel="Project image"
+                    overlay={
+                      <div className="absolute top-4 left-4 z-10">
+                        <span className="bg-charcoal/80 text-ivory text-xs px-3 py-1 rounded-full backdrop-blur-sm">
+                          {tProjects(`categories.${project.category}`)}
+                        </span>
+                      </div>
+                    }
+                  />
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="font-display text-xl text-charcoal mb-2 line-clamp-2 group-hover:text-gold transition-colors">
                       {locale === "ml" && project.title_ml ? project.title_ml : project.title}
                     </h3>
-                    <div className="flex items-center gap-3 mt-4">
+                    <div className="mt-auto flex items-center gap-3 pt-4">
                       <Progress value={project.progress} className="flex-1" />
                       <span className="text-xs text-emerald font-medium">{project.progress}%</span>
                     </div>

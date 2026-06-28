@@ -4,6 +4,8 @@ import { useState } from "react";
 import { ImageUpload } from "@/components/admin/image-upload";
 import { AdminButton } from "@/components/admin/ui";
 import type { Gallery, GalleryCategory } from "@/types/database";
+import { pickGalleryPayload } from "@/lib/admin/gallery";
+import { publishedImageError } from "@/lib/image-utils";
 
 const categories: GalleryCategory[] = ["development", "public_meetings", "welfare", "events"];
 
@@ -43,10 +45,15 @@ export function GalleryForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const imageError = publishedImageError(form.is_published, form.cover_image, "cover image");
+    if (imageError) {
+      setError(imageError);
+      return;
+    }
     setSaving(true);
     setError(null);
     try {
-      await onSave(form);
+      await onSave(pickGalleryPayload(form as Record<string, unknown>));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save failed");
       setSaving(false);
@@ -92,6 +99,9 @@ export function GalleryForm({
         />
         Published on public gallery
       </label>
+      <p className="text-xs text-[var(--admin-muted)]">
+        Publishing requires a cover image (or upload photos after creating the album).
+      </p>
 
       {error && <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{error}</p>}
 

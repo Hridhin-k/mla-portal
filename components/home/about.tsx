@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { IMAGE_SIZES } from "@/lib/image-sizes";
 import { useLocale, useTranslations } from "next-intl";
 import { FadeIn } from "@/components/animations/motion";
 import { timelineEvents as defaultTimeline } from "@/lib/data/demo";
@@ -28,7 +29,7 @@ export function AboutSection({ settings }: { settings: SiteSettings }) {
                 alt={name}
                 fill
                 className="object-cover rounded-2xl"
-                sizes="(max-width: 768px) 100vw, 400px"
+                sizes={IMAGE_SIZES.portrait}
               />
               <div className="absolute -bottom-6 -right-6 w-32 h-32 border border-gold/40 rounded-2xl -z-10" />
             </div>

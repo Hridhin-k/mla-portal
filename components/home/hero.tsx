@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { IMAGE_SIZES } from "@/lib/image-sizes";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, ChevronDown } from "lucide-react";
@@ -36,7 +37,7 @@ export function HeroSection({ settings }: { settings: SiteSettings }) {
           fill
           className="object-cover"
           priority
-          sizes="100vw"
+          sizes={IMAGE_SIZES.viewport}
           quality={85}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/60 to-charcoal/30" />

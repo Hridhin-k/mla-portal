@@ -72,6 +72,14 @@
   box-shadow: 0 0 0 3px rgba(232, 133, 12, 0.15);
 }
 
+.admin-input-has-icon {
+  padding-left: 2.75rem;
+}
+
+.admin-input-has-toggle {
+  padding-right: 2.75rem;
+}
+
 .admin-textarea {
   width: 100%;
   min-height: 6rem;

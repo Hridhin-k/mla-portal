@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { redirect } from "next/navigation";
 
 export async function requireStaff() {
   const supabase = await createClient();
@@ -31,6 +32,18 @@ export async function requireAdmin() {
   if ("error" in result && result.error) return result;
   if (!result.isAdmin) {
     return { error: NextResponse.json({ error: "Admin only" }, { status: 403 }) };
+  }
+  return result;
+}
+
+/** Server components — redirect staff away from admin-only pages. */
+export async function requireAdminPage() {
+  const result = await requireStaff();
+  if ("error" in result && result.error) {
+    redirect("/admin/login");
+  }
+  if (!result.isAdmin) {
+    redirect("/admin");
   }
   return result;
 }
